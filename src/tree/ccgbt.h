@@ -103,8 +103,8 @@ STATEMENT_                                                                     \
                                                                                \
 STATEMENT_                                                                     \
 (                                                                              \
-    if ((_alloc))                                                              \
-        _cont_alloc((_ccgbt));                                                 \
+    int _c_tmp = (_alloc);                                                     \
+    if (_c_tmp) _cont_alloc((_ccgbt));                                         \
                                                                                \
     _ccgbt_init_core((_ccgbt));                                                \
     _ccgbt_init_info((_ccgbt), (_start), (_ratio), (_thrsh));                  \
@@ -151,11 +151,11 @@ VOID_EXPR_                                                                     \
 )
 
 
-#define ccgbt_iter_init(_iter, _ccgbt)                                         \
+#define ccgbt_iter_init(_iter, _ccgbt, _alloc)                                 \
                                                                                \
 VOID_EXPR_                                                                     \
 (                                                                              \
-    (_iter)->curr.node = NULL,                                                 \
+    (_iter)->curr.node = ((_alloc) ? NULL : (_iter)->curr.node),               \
     (_iter)->ccgbt = (_ccgbt)                                                  \
 )
 
@@ -164,10 +164,10 @@ VOID_EXPR_                                                                     \
                                                                                \
 STATEMENT_                                                                     \
 (                                                                              \
-    if ((_alloc))                                                              \
-        _iter_alloc((_iter));                                                  \
+    int _i_tmp = (_alloc);                                                     \
+    if (_i_tmp)  _iter_alloc((_iter));                                         \
                                                                                \
-    ccgbt_iter_init((_iter), (_ccgbt));                                        \
+    ccgbt_iter_init((_iter), (_ccgbt), _i_tmp);                                \
 )
 
 
@@ -274,11 +274,11 @@ STATEMENT_                                                                     \
                                                                                \
     _it_init((_iter)->ccgbt, 2, _base_e, ccgbt);                               \
                                                                                \
-    _ccgbt_erase(     (_iter),                                                 \
-                 _it_((_iter)->ccgbt, _base_e, 0),                             \
-                 _it_((_iter)->ccgbt, _base_e, 1), _targ_, _oppo_);            \
+    _ccgbt_erase(    (_iter),                                                  \
+                 _it((_iter)->ccgbt, _base_e, 0),                              \
+                 _it((_iter)->ccgbt, _base_e, 1), _targ_, _oppo_);             \
                                                                                \
-    _it_clear((_iter)->ccgbt, 2);                                              \
+    _it_clear((_iter)->ccgbt, 2, _dummy, _dummy);                              \
 )
 
 #define _ccgbt_erase(_iter, _iter_a, _iter_b, _targ_, _oppo_)                  \

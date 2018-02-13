@@ -1,3 +1,4 @@
+#define CC_STRICT
 #include "ccgbt-test.h"
 #include "../../src/tree/ccgbt.h"
 

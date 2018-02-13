@@ -7,7 +7,7 @@ void tree_init        (tree_t *tree) { ccgbt_init(*tree); }
 void tree_free        (tree_t *tree) { ccgbt_free(*tree); }
 
 void tree_iter_init   (iter_t *iter,
-                       tree_t *tree) { ccgbt_iter_init(iter, *tree); }
+                       tree_t *tree) { ccgbt_iter_init(iter, *tree, 1); }
 void tree_iter_root   (iter_t *iter) { ccgbt_iter_root(iter); }
 void tree_iter_left   (iter_t *iter) { ccgbt_iter_left(iter); }
 void tree_iter_right  (iter_t *iter) { ccgbt_iter_right(iter); }
